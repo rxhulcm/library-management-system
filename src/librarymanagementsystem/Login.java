@@ -78,7 +78,34 @@ public class Login extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == login){
-            
+            String userid = username.getText();
+            char pin[]= password.getPassword();
+            String pinno = new String(pin);
+            try{
+                Conn c = new Conn();
+                String query = "select * from adminlogin where id=?";
+                PreparedStatement p = c.c.prepareStatement(query);
+                p.setString(1,userid);
+                ResultSet rs = p.executeQuery();
+                if(rs.next()){
+                    String passcode = rs.getString("pin");
+                    if(passcode.equals(pinno)){
+                        setVisible(false);
+                        new MainMenu().setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Incorrect Password");
+                        password.setText("");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Incorrect Username");
+                    username.setText("");
+                    password.setText("");
+                }
+                
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }
         
         else if (ae.getSource() == clear){

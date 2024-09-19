@@ -139,7 +139,7 @@ public class MainMenu extends JFrame implements ActionListener{
         logout.setBackground(Color.RED);
         logout.setForeground(Color.WHITE);
         logout.setFont(new Font("Monospaced",Font.PLAIN,18));
-        //logout.addActionListener(this);
+        logout.addActionListener(this);
         add(logout);
         
         
@@ -189,6 +189,10 @@ public class MainMenu extends JFrame implements ActionListener{
             String ID=""+random1+random2;
             setVisible(false);
             new CapturePhoto(ID).setVisible(true);
+        }
+        else if(e.getSource() == logout){
+            setVisible(false);
+            new Login().setVisible(true);
         }
     }
     public static void main(String args[]){
